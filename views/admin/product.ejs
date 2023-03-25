@@ -5,10 +5,10 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-6">
-                            <h3>All Categories</h3>
+                            <h3>All Products</h3>
                         </div>
                         <div class="col-6 text text-right">
-                            <button type="button" data-toggle="modal" data-target="#createCategoryModal"
+                            <button type="button" data-toggle="modal" data-target="#createProductModal"
                                 class="btn btn-info">Add New</button>
                         </div>
                     </div>
@@ -20,18 +20,24 @@
                             <tr>
                                 <th>S.NO</th>
                                 <th>Title</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Category</th>
                                 <th>Description</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% for(let i =0; i < categories.length; i++) {
-                                let category = categories[i];    
+                            <% for(let i =0; i < products.length; i++) {
+                                let product = products[i];    
                             %> 
                             <tr>
                                 <td><%= i + 1; %></td>
-                                <td><%= category.title; %></td>
-                                <td><%= category.description; %></td>
+                                <td><%= product.title; %></td>
+                                <td><%= product.price; %></td>
+                                <td><%= product.quantity; %></td>
+                                <td><%= product.category_id; %></td>
+                                <td><%= product.description; %></td>
                                 <td>
                                     <a href="#" class="btn btn-primary">Edit</a>
                                     <a href="#" class="btn btn-danger">Delete</a>
@@ -47,13 +53,13 @@
 </div>
 
 
-<div class="modal fade" id="createCategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="createProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form action="/admin/category" method="post">
+            <form action="/admin/product" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create New Category</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create New Product</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -64,14 +70,22 @@
                             <label>Title</label>
                             <input type="text" name="title" id="title" class="form-control" />
                         </div>
+                        <div class="col-6">
+                            <label>Price</label>
+                            <input type="number" name="price" id="price" class="form-control" />
+                        </div>
+                        <div class="col-6">
+                            <label>Quantity</label>
+                            <input type="number" name="quantity" id="quantity" class="form-control" />
+                        </div>
                         <div class="col-12 mt-2">
                             <label>Description</label>
                             <textarea name="description" class="form-control"></textarea>
                         </div>
 
                         <div class="col-12 mt-2">
-                            <label>Parent Category</label>
-                            <select name="parentId" class="form-control">
+                            <label>Category</label>
+                            <select name="categoryId" class="form-control">
                                 <option value="0">Select Product Category</option>
                                 <% for(let i =0; i < categories.length; i++) {
                                     let category = categories[i];    
@@ -80,11 +94,15 @@
                                 <% } %>
                             </select>
                         </div>
+                        <div class="col-12 mt-2">
+                            <label>Images</label>
+                            <input type="file" name="productImages" multiple="multiple"  />
+                        </div>
 
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Create Product</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>

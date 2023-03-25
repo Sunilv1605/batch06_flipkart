@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const categoryController = require("../../controller/CategoryController");
+const productController = require("../../controller/ProductController");
 
 
 
@@ -25,5 +26,9 @@ app.get('/login', function (req, res) {
 app.get('/category', categoryController.categoryPage);
 
 app.post('/category', categoryController.createCategory);
+
+app.get('/products', productController.productPage);
+
+app.post('/product', productController.createProduct);
 
 module.exports = app;
