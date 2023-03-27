@@ -19,6 +19,7 @@
                         <thead>
                             <tr>
                                 <th>S.NO</th>
+                                <th>Image</th>
                                 <th>Title</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
@@ -30,9 +31,13 @@
                         <tbody>
                             <% for(let i =0; i < products.length; i++) {
                                 let product = products[i];    
+                                const allImages = product.images.split(",");
                             %> 
                             <tr>
                                 <td><%= i + 1; %></td>
+                                <td>
+                                    <img src="/product_images/<%= allImages[0]; %>" alt="Internal Server Error" height="100" width="100" />
+                                </td>
                                 <td><%= product.title; %></td>
                                 <td><%= product.price; %></td>
                                 <td><%= product.quantity; %></td>

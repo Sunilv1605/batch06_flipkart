@@ -1,5 +1,6 @@
 const productModel = require("../model/ProductModel");
 const categoryModel = require("../model/CategoryModel");
+const commonServices = require("../services/CommonServices");
 
 class ProductController {
 
@@ -38,6 +39,25 @@ class ProductController {
                 categoryId: categoryId,
                 images: ''
             };
+
+            /** 
+             * Upload Image on the server
+             */
+            const allImages = req.files.productImages;
+            let allImageNames = [];
+            if (allImages) {
+                for (let index = 0; index < allImages.length; index++) {
+                    let singleImage = allImages[index];
+                    console.log("Before singleImage", singleImage);
+                    const imageNewName = await commonServices.generateImageName(singleImage.name);
+                    singleImage.name = imageNewName;
+                    console.log("After singleImage", singleImage);
+                    await commonServices.uploadImage(singleImage);
+                    allImageNames.push(imageNewName);
+                }
+                console.log("allImageNames", allImageNames);
+                product.images = allImageNames.toString(',');
+            }
             await productModel.insertProduct(product);
             res.redirect('/admin/products');
         } catch (error) {
