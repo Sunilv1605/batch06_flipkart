@@ -16,6 +16,7 @@ class ProductController {
             }
             let categoryResult = await categoryModel.getAllCategories();
             let productResult = await productModel.getAllProducts();
+            console.log("productResult", productResult);
             page.categories = categoryResult;
             page.products = productResult;
             res.render('admin/template', page);

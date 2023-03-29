@@ -18,7 +18,7 @@ class ProductModel {
 
     async getAllProducts(data) {
         return new Promise(function (resolve, reject) {
-            let insertQry = `SELECT * FROM products`;
+            let insertQry = `SELECT products.*, category.title AS category_title  FROM products INNER JOIN category ON products.category_id=category.id`;
             connection.query(insertQry, function (error, result) {
                 if (error) {
                     reject(error);
